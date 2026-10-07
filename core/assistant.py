@@ -27,9 +27,19 @@ EMPTY_CHAT = "لم أتمكن من إنشاء رد حاليًا."
 
 
 @lru_cache(maxsize=4)
-def _client(api_key: str):
-    from google import genai
+import streamlit as st  # تأكدي من استيراد مكتبة ستريملت
 
+# ... (باقي الكود الثابت لديكِ)
+
+def _client(api_key: str):
+    # إذا لم يتم إرسال المفتاح، جلبة تلقائياً من أسرار Streamlit Cloud
+    if not api_key:
+        try:
+            api_key = st.secrets["GEMINI_API_KEY"]
+        except Exception:
+            pass
+            
+    _cache_clear()
     return genai.Client(api_key=api_key)
 
 
