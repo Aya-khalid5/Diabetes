@@ -30,19 +30,9 @@ EMPTY_CHAT = "لم أتمكن من إنشاء رد حاليًا."
 import streamlit as st  # تأكدي من استيراد مكتبة ستريملت
 
 # ... (باقي الكود الثابت لديكِ)
-
 def _client(api_key: str):
-    # إذا لم يتم إرسال المفتاح، جلبة تلقائياً من أسرار Streamlit Cloud
-    if not api_key:
-        try:
-            api_key = st.secrets["GEMINI_API_KEY"]
-        except Exception:
-            pass
-            
-    _cache_clear()
+    from google import genai
     return genai.Client(api_key=api_key)
-
-
 class Assistant:
     def __init__(self, api_key: str = "", model: str = DEFAULT_MODEL, client: Any = None):
         self.api_key = (api_key or "").strip()
