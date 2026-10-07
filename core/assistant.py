@@ -143,8 +143,11 @@ def from_secrets(secrets: Any = None) -> Assistant:
         try:
             key = str(secrets.get("GEMINI_API_KEY", "") or "")
             model = str(secrets.get("GEMINI_MODEL", "") or "")
-        except Exception:  # no secrets file present
-            pass
+            if not key:
+                # names only - never values
+                log.warning("GEMINI_API_KEY not found in Streamlit secrets. Secret names present: %s", list(secrets.keys()))
+        except Exception as exc:  # no secrets file, or the secrets text is not valid TOML
+            log.warning("Could not read Streamlit secrets (%s). Expected TOML: GEMINI_API_KEY = \"...\"", type(exc).__name__)
     key = key or os.getenv("GEMINI_API_KEY", "")
     model = model or os.getenv("GEMINI_MODEL", "") or DEFAULT_MODEL
     return Assistant(key, model)
