@@ -6,13 +6,15 @@ import streamlit as st
 from .assistant import Assistant, from_secrets
 from .predictor import Predictor
 
+
 @st.cache_resource(show_spinner="Loading the trained model…")
 def get_predictor() -> Predictor:
     return Predictor.load()
 
 
-@st.cache_resource(show_spinner=False)
 def get_assistant() -> Assistant:
+    # Deliberately NOT cached: it is cheap (the Gemini client itself is cached per key),
+    # and this way a key added/changed in Secrets is picked up without rebooting the app.
     return from_secrets(st.secrets)
 
 
