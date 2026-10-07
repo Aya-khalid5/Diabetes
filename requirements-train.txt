@@ -1,0 +1,2 @@
+# Only needed to re-train the model:  pip install -r requirements.txt -r requirements-train.txt
+scikit-learn>=1.5
