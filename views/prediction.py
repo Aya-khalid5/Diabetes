@@ -9,6 +9,7 @@ ss = st.session_state
 try:
     predictor = services.get_predictor()
     assistant = services.get_assistant()
+    st.caption(f"DEBUG — Gemini key found: {assistant.enabled} | model: {assistant.model}")
 except Exception:
     st.error("The prediction model could not be loaded right now. Please try again later.")
     st.stop()
