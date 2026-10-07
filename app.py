@@ -25,4 +25,9 @@ if nav.url_path != "diabetes-prediction":
     st.session_state.pop("last_prediction", None)
     st.session_state.pop("chatbot_response", None)
 
+import streamlit as st
+
+st.write("Gemini key loaded:", bool(st.secrets.get("GEMINI_API_KEY")))
+st.write("Gemini model:", st.secrets.get("GEMINI_MODEL", "NOT FOUND"))
+
 nav.run()
