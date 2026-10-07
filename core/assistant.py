@@ -27,12 +27,10 @@ EMPTY_CHAT = "لم أتمكن من إنشاء رد حاليًا."
 
 
 @lru_cache(maxsize=4)
-import streamlit as st  # تأكدي من استيراد مكتبة ستريملت
-
-# ... (باقي الكود الثابت لديكِ)
 def _client(api_key: str):
     from google import genai
     return genai.Client(api_key=api_key)
+    
 class Assistant:
     def __init__(self, api_key: str = "", model: str = DEFAULT_MODEL, client: Any = None):
         self.api_key = (api_key or "").strip()
